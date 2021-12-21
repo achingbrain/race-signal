@@ -1,7 +1,7 @@
 {
   "name": "race-signal",
   "version": "0.0.0",
-  "description": "",
+  "description": "Race a promise against an AbortSignal",
   "main": "src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -18,7 +18,7 @@
     "release-minor": "aegir release -t node --type minor",
     "release-major": "aegir-release -t node --type major"
   },
-  "author": "",
+  "author": "Alex Potsides <alex@achingbrain.net>",
   "license": "ISC",
   "devDependencies": {
     "aegir": "^36.1.1"
