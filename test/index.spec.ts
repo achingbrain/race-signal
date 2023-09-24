@@ -1,8 +1,7 @@
 /* eslint-env mocha */
-'use strict'
 
-const { expect } = require('aegir/utils/chai')
-const { raceSignal } = require('..')
+import { expect } from 'aegir/chai'
+import { raceSignal } from '../src/index.js'
 
 describe('race-signal', () => {
   it('should resolve value when no signal passed', async () => {
