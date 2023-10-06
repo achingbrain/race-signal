@@ -38,12 +38,15 @@ export async function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal,
 
   let listener
 
+  // create the error here so we have more context in the stack trace
+  const error = new AbortError(opts?.errorMessage, opts?.errorCode)
+
   try {
     return await Promise.race([
       promise,
       new Promise<T>((resolve, reject) => {
         listener = () => {
-          reject(new AbortError(opts?.errorMessage, opts?.errorCode))
+          reject(error)
         }
         signal.addEventListener('abort', listener)
       })
