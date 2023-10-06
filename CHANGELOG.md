@@ -1,3 +1,15 @@
+## [1.0.1](https://github.com/achingbrain/race-signal/compare/v1.0.0...v1.0.1) (2023-10-06)
+
+
+### Bug Fixes
+
+* improve stack trace of thrown error ([#45](https://github.com/achingbrain/race-signal/issues/45)) ([ae387a8](https://github.com/achingbrain/race-signal/commit/ae387a843be70eeeb752130ddbae2d90c6325de9))
+
+
+### Dependencies
+
+* **dev:** bump aegir from 40.0.13 to 41.0.0 ([#44](https://github.com/achingbrain/race-signal/issues/44)) ([ce1688e](https://github.com/achingbrain/race-signal/commit/ce1688e006fe69a0ccba972b6ab2f11a67467623))
+
 ## [1.0.0](https://github.com/achingbrain/race-signal/compare/v0.1.0...v1.0.0) (2023-09-24)
 
 
