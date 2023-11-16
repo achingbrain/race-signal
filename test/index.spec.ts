@@ -20,6 +20,35 @@ describe('race-signal', () => {
     await expect(raceSignal(p, controller.signal)).to.eventually.be.rejected().with.property('code', 'ABORT_ERR')
   })
 
+  it('should have default error fields', async () => {
+    const value = 'hello world'
+    const p = Promise.resolve(value)
+    const controller = new AbortController()
+    controller.abort()
+
+    const err = await raceSignal(p, controller.signal).catch(err => err)
+
+    expect(err).to.have.property('type', 'aborted')
+    expect(err).to.have.property('name', 'AbortError')
+    expect(err).to.have.property('code', 'ABORT_ERR')
+  })
+
+  it('should have override error fields', async () => {
+    const value = 'hello world'
+    const p = Promise.resolve(value)
+    const controller = new AbortController()
+    controller.abort()
+
+    const err = await raceSignal(p, controller.signal, {
+      errorMessage: 'oh noes!',
+      errorCode: 'OH_NOES'
+    }).catch(err => err)
+
+    expect(err).to.have.property('message', 'oh noes!')
+    expect(err).to.have.property('name', 'AbortError')
+    expect(err).to.have.property('code', 'OH_NOES')
+  })
+
   it('should abort after a delay', async () => {
     const value = 'hello world'
     const p = new Promise((resolve) => {
