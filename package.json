@@ -132,6 +132,6 @@
     "docs": "aegir docs"
   },
   "devDependencies": {
-    "aegir": "^41.0.0"
+    "aegir": "^42.2.2"
   }
 }
