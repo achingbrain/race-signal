@@ -5,10 +5,10 @@ export class AbortError extends Error {
   public type: string
   public code: string | string
 
-  constructor (message?: string, code?: string) {
+  constructor (message?: string, code?: string, name?: string) {
     super(message ?? 'The operation was aborted')
     this.type = 'aborted'
-    this.name = 'AbortError'
+    this.name = name ?? 'AbortError'
     this.code = code ?? 'ABORT_ERR'
   }
 }
@@ -23,6 +23,11 @@ export interface RaceSignalOptions {
    * The code for the error thrown if the signal aborts
    */
   errorCode?: string
+
+  /**
+   * The name for the error thrown if the signal aborts
+   */
+  errorName?: string
 }
 
 /**
@@ -34,13 +39,13 @@ export async function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal,
   }
 
   if (signal.aborted) {
-    return Promise.reject(new AbortError(opts?.errorMessage, opts?.errorCode))
+    return Promise.reject(new AbortError(opts?.errorMessage, opts?.errorCode, opts?.errorName))
   }
 
   let listener
 
   // create the error here so we have more context in the stack trace
-  const error = new AbortError(opts?.errorMessage, opts?.errorCode)
+  const error = new AbortError(opts?.errorMessage, opts?.errorCode, opts?.errorName)
 
   try {
     return await Promise.race([

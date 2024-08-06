@@ -41,11 +41,12 @@ describe('race-signal', () => {
 
     const err = await raceSignal(p, controller.signal, {
       errorMessage: 'oh noes!',
-      errorCode: 'OH_NOES'
+      errorCode: 'OH_NOES',
+      errorName: 'FailureError'
     }).catch(err => err)
 
     expect(err).to.have.property('message', 'oh noes!')
-    expect(err).to.have.property('name', 'AbortError')
+    expect(err).to.have.property('name', 'FailureError')
     expect(err).to.have.property('code', 'OH_NOES')
   })
 
