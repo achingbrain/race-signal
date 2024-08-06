@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/achingbrain/race-signal/compare/v1.0.3...v1.1.0) (2024-08-06)
+
+### Features
+
+* allow overriding name property ([#59](https://github.com/achingbrain/race-signal/issues/59)) ([c9f8798](https://github.com/achingbrain/race-signal/commit/c9f8798e987650616b9365fe03e879ebc32e558e))
+
 ## [1.0.3](https://github.com/achingbrain/race-signal/compare/v1.0.2...v1.0.3) (2024-08-06)
 
 ### Trivial Changes
