@@ -1,7 +1,7 @@
 # race-signal <!-- omit in toc -->
 
 [![codecov](https://img.shields.io/codecov/c/github/achingbrain/race-signal.svg?style=flat-square)](https://codecov.io/gh/achingbrain/race-signal)
-[![CI](https://img.shields.io/github/actions/workflow/status/achingbrain/race-signal/js-test-and-release.yml?branch=master\&style=flat-square)](https://github.com/achingbrain/race-signal/actions/workflows/js-test-and-release.yml?query=branch%3Amaster)
+[![CI](https://img.shields.io/github/actions/workflow/status/achingbrain/race-signal/js-test-and-release.yml?branch=main\&style=flat-square)](https://github.com/achingbrain/race-signal/actions/workflows/js-test-and-release.yml?query=branch%3Amain)
 
 > Race a promise against an AbortSignal
 
