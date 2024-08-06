@@ -1,3 +1,13 @@
+## [1.0.3](https://github.com/achingbrain/race-signal/compare/v1.0.2...v1.0.3) (2024-08-06)
+
+### Trivial Changes
+
+* rename master to main ([#58](https://github.com/achingbrain/race-signal/issues/58)) ([d4a06c8](https://github.com/achingbrain/race-signal/commit/d4a06c82a735734550bf34a93451042fb25a1746))
+
+### Dependencies
+
+* **dev:** bump aegir from 41.3.5 to 44.1.0 ([#57](https://github.com/achingbrain/race-signal/issues/57)) ([2067ab6](https://github.com/achingbrain/race-signal/commit/2067ab6f867acf00141453e1cd9bea4ce75c923a))
+
 ## [1.0.2](https://github.com/achingbrain/race-signal/compare/v1.0.1...v1.0.2) (2023-11-16)
 
 

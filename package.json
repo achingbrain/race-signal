@@ -1,6 +1,6 @@
 {
   "name": "race-signal",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Race a promise against an AbortSignal",
   "author": "Alex Potsides <alex@achingbrain.net>",
   "license": "Apache-2.0 OR MIT",
