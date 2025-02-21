@@ -1,3 +1,13 @@
+## [1.1.1](https://github.com/achingbrain/race-signal/compare/v1.1.0...v1.1.1) (2025-02-21)
+
+### Trivial Changes
+
+* remove docs ([6b0c6de](https://github.com/achingbrain/race-signal/commit/6b0c6de177c3f200cc6cddd26cbdd9b3139b0862))
+
+### Dependencies
+
+* **dev:** bump aegir from 44.1.4 to 45.0.8 ([#63](https://github.com/achingbrain/race-signal/issues/63)) ([b2bd93e](https://github.com/achingbrain/race-signal/commit/b2bd93e95c5535de2d00833cf1168a544685f790))
+
 ## [1.1.0](https://github.com/achingbrain/race-signal/compare/v1.0.3...v1.1.0) (2024-08-06)
 
 ### Features
