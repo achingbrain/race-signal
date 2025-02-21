@@ -81,4 +81,13 @@ describe('race-signal', () => {
 
     await expect(raceSignal(p, controller.signal)).to.eventually.equal(value)
   })
+
+  it('should reject when an aborted signal is passed and the promise also rejects', async () => {
+    const rejected = Promise.reject(new Error('wat'))
+    const controller = new AbortController()
+    controller.abort()
+
+    await expect(raceSignal(rejected, controller.signal)).to.eventually.be.rejected
+      .with.property('name', 'AbortError')
+  })
 })
