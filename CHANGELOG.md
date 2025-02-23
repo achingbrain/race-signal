@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/achingbrain/race-signal/compare/v1.1.2...v1.1.3) (2025-02-23)
+
+### Bug Fixes
+
+* simplify rejection handling ([#65](https://github.com/achingbrain/race-signal/issues/65)) ([bea88e6](https://github.com/achingbrain/race-signal/commit/bea88e618aff1a1133cb44921f28af652a6ad75f))
+
 ## [1.1.2](https://github.com/achingbrain/race-signal/compare/v1.1.1...v1.1.2) (2025-02-21)
 
 ### Bug Fixes
