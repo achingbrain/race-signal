@@ -39,20 +39,10 @@ export async function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal,
   }
 
   if (signal.aborted) {
-    const reason = Promise.reject(new AbortError(opts?.errorMessage, opts?.errorCode, opts?.errorName))
-
-    // we want to return a rejection, but also not leave the passed promise
-    // hanging, so await it but then return the rejection reason
-    return Promise.race([
-      reason,
-      Promise.resolve().then(async () => {
-        try {
-          await promise
-        } catch {}
-
-        return reason
-      })
-    ])
+    // the passed promise may yet resolve or reject but the use has signalled
+    // they are no longer interested so smother the error
+    promise.catch(() => {})
+    return Promise.reject(new AbortError(opts?.errorMessage, opts?.errorCode, opts?.errorName))
   }
 
   let listener
