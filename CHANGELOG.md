@@ -1,3 +1,13 @@
+## [2.0.0](https://github.com/achingbrain/race-signal/compare/v1.1.3...v2.0.0) (2025-08-19)
+
+### ⚠ BREAKING CHANGES
+
+* `signal.reason` is now thrown and you must use `translateError` to throw a custom error
+
+### Bug Fixes
+
+* throw signal.reason, remove error fields ([#79](https://github.com/achingbrain/race-signal/issues/79)) ([88bb875](https://github.com/achingbrain/race-signal/commit/88bb875616c14c646c1fffae5a40cfd6699a1175))
+
 ## [1.1.3](https://github.com/achingbrain/race-signal/compare/v1.1.2...v1.1.3) (2025-02-23)
 
 ### Bug Fixes
