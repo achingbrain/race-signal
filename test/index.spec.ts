@@ -12,12 +12,14 @@ describe('race-signal', () => {
   })
 
   it('should abort when aborted signal passed', async () => {
+    const reason = new Error('Wat')
     const value = 'hello world'
     const p = Promise.resolve(value)
     const controller = new AbortController()
-    controller.abort()
+    controller.abort(reason)
 
-    await expect(raceSignal(p, controller.signal)).to.eventually.be.rejected().with.property('code', 'ABORT_ERR')
+    await expect(raceSignal(p, controller.signal)).to.eventually.be.rejected()
+      .equal(reason)
   })
 
   it('should have default error fields', async () => {
@@ -28,26 +30,23 @@ describe('race-signal', () => {
 
     const err = await raceSignal(p, controller.signal).catch(err => err)
 
-    expect(err).to.have.property('type', 'aborted')
     expect(err).to.have.property('name', 'AbortError')
-    expect(err).to.have.property('code', 'ABORT_ERR')
   })
 
-  it('should have override error fields', async () => {
+  it('should have override error translator', async () => {
+    const reason = new Error('Wat')
     const value = 'hello world'
     const p = Promise.resolve(value)
     const controller = new AbortController()
-    controller.abort()
+    controller.abort(reason)
+
+    const override = new Error('Urk!')
 
     const err = await raceSignal(p, controller.signal, {
-      errorMessage: 'oh noes!',
-      errorCode: 'OH_NOES',
-      errorName: 'FailureError'
+      translateError: () => override
     }).catch(err => err)
 
-    expect(err).to.have.property('message', 'oh noes!')
-    expect(err).to.have.property('name', 'FailureError')
-    expect(err).to.have.property('code', 'OH_NOES')
+    expect(err).to.equal(override)
   })
 
   it('should abort after a delay', async () => {
@@ -63,7 +62,8 @@ describe('race-signal', () => {
       controller.abort()
     }, 100)
 
-    await expect(raceSignal(p, controller.signal)).to.eventually.be.rejected().with.property('code', 'ABORT_ERR')
+    await expect(raceSignal(p, controller.signal)).to.eventually.be.rejected()
+      .with.property('name', 'AbortError')
   })
 
   it('should resolve after a delay', async () => {

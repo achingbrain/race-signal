@@ -1,33 +1,71 @@
 /**
- * An abort error class that extends error
+ * @packageDocumentation
+ *
+ * Pass a promise and an abort signal and await the result.
+ *
+ * @example Basic usage
+ *
+ * ```ts
+ * import { raceSignal } from 'race-signal'
+ *
+ * const controller = new AbortController()
+ *
+ * const promise = new Promise((resolve, reject) => {
+ *   setTimeout(() => {
+ *     resolve('a value')
+ *   }, 1000)
+ * })
+ *
+ * setTimeout(() => {
+ *   controller.abort()
+ * }, 500)
+ *
+ * // throws an AbortError
+ * const resolve = await raceSignal(promise, controller.signal)
+ * ```
+ *
+ * @example Overriding errors
+ *
+ * By default the thrown error is the `.reason` property of the signal but it's
+ * possible to override this behaviour with the `translateError` option:
+ *
+ * ```ts
+ * import { raceSignal } from 'race-signal'
+ *
+ * const controller = new AbortController()
+ *
+ * const promise = new Promise((resolve, reject) => {
+ *   setTimeout(() => {
+ *     resolve('a value')
+ *   }, 1000)
+ * })
+ *
+ * setTimeout(() => {
+ *   controller.abort()
+ * }, 500)
+ *
+ * // throws `Error('Oh no!')`
+ * const resolve = await raceSignal(promise, controller.signal, {
+ *   translateError: (signal) => {
+ *     // use `signal`, or don't
+ *     return new Error('Oh no!')
+ *   }
+ * })
+ * ```
  */
-export class AbortError extends Error {
-  public type: string
-  public code: string | string
-
-  constructor (message?: string, code?: string, name?: string) {
-    super(message ?? 'The operation was aborted')
-    this.type = 'aborted'
-    this.name = name ?? 'AbortError'
-    this.code = code ?? 'ABORT_ERR'
-  }
-}
 
 export interface RaceSignalOptions {
   /**
-   * The message for the error thrown if the signal aborts
+   * By default the rejection reason will be taken from the `.reason` field of
+   * the aborted signal.
+   *
+   * Passing a function here allows overriding the default error.
    */
-  errorMessage?: string
+  translateError?(signal: AbortSignal): Error
+}
 
-  /**
-   * The code for the error thrown if the signal aborts
-   */
-  errorCode?: string
-
-  /**
-   * The name for the error thrown if the signal aborts
-   */
-  errorName?: string
+function defaultTranslate (signal: AbortSignal): Error {
+  return signal.reason
 }
 
 /**
@@ -38,24 +76,23 @@ export async function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal,
     return promise
   }
 
+  const translateError = opts?.translateError ?? defaultTranslate
+
   if (signal.aborted) {
     // the passed promise may yet resolve or reject but the use has signalled
     // they are no longer interested so smother the error
     promise.catch(() => {})
-    return Promise.reject(new AbortError(opts?.errorMessage, opts?.errorCode, opts?.errorName))
+    return Promise.reject(translateError(signal))
   }
 
   let listener
-
-  // create the error here so we have more context in the stack trace
-  const error = new AbortError(opts?.errorMessage, opts?.errorCode, opts?.errorName)
 
   try {
     return await Promise.race([
       promise,
       new Promise<T>((resolve, reject) => {
         listener = () => {
-          reject(error)
+          reject(translateError(signal))
         }
         signal.addEventListener('abort', listener)
       })
