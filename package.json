@@ -12,6 +12,10 @@
   "bugs": {
     "url": "https://github.com/achingbrain/race-signal/issues"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "type": "module",
   "types": "./dist/src/index.d.ts",
   "files": [
@@ -24,12 +28,6 @@
     ".": {
       "types": "./dist/src/index.d.ts",
       "import": "./dist/src/index.js"
-    }
-  },
-  "eslintConfig": {
-    "extends": "ipfs",
-    "parserOptions": {
-      "sourceType": "module"
     }
   },
   "release": {
@@ -114,7 +112,15 @@
       "@semantic-release/changelog",
       "@semantic-release/npm",
       "@semantic-release/github",
-      "@semantic-release/git"
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ]
+        }
+      ]
     ]
   },
   "scripts": {
@@ -132,6 +138,6 @@
     "docs": "aegir docs"
   },
   "devDependencies": {
-    "aegir": "^45.0.8"
+    "aegir": "^47.0.21"
   }
 }
