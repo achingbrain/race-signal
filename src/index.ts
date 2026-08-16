@@ -71,8 +71,10 @@ function defaultTranslate (signal: AbortSignal): Error {
 /**
  * Race a promise against an abort signal
  */
-export async function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal | null, opts?: RaceSignalOptions): Promise<T> {
-  if (signal == null) {
+export function raceSignal <T> (promise: T, signal?: AbortSignal | null, opts?: RaceSignalOptions): T
+export function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal | null, opts?: RaceSignalOptions): Promise<T>
+export function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal | null, opts?: RaceSignalOptions): Promise<T> | T {
+  if (signal == null || promise == null) {
     return promise
   }
 
@@ -85,21 +87,20 @@ export async function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal 
     return Promise.reject(translateError(signal))
   }
 
-  let listener
+  let listener: EventListenerOrEventListenerObject | undefined
 
-  try {
-    return await Promise.race([
-      promise,
-      new Promise<T>((resolve, reject) => {
-        listener = () => {
-          reject(translateError(signal))
-        }
-        signal.addEventListener('abort', listener)
-      })
-    ])
-  } finally {
-    if (listener != null) {
-      signal.removeEventListener('abort', listener)
-    }
-  }
+  return Promise.race([
+    promise,
+    new Promise<T>((resolve, reject) => {
+      listener = () => {
+        reject(translateError(signal))
+      }
+      signal.addEventListener('abort', listener)
+    })
+  ])
+    .finally(() => {
+      if (listener != null) {
+        signal.removeEventListener('abort', listener)
+      }
+    })
 }

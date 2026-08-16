@@ -9,6 +9,24 @@ describe('race-signal', () => {
     await expect(raceSignal(p)).to.eventually.equal(value)
   })
 
+  it('should resolve null value', () => {
+    expect(raceSignal(null)).to.be.null()
+  })
+
+  it('should resolve undefined value', () => {
+    expect(raceSignal(undefined)).to.be.undefined()
+  })
+
+  it('should require a value or a promise of a value', () => {
+    // @ts-expect-error must pass a value
+    raceSignal()
+  })
+
+  it('should resolve value', () => {
+    const value = 'hello world'
+    expect(raceSignal(value)).to.equal(value)
+  })
+
   it('should resolve value when null signal passed', async () => {
     const value = 'hello world'
     const p = Promise.resolve(value)
