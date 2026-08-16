@@ -1,3 +1,13 @@
+## [2.0.1](https://github.com/achingbrain/race-signal/compare/v2.0.0...v2.0.1) (2026-08-16)
+
+### Bug Fixes
+
+* support null signals ([#88](https://github.com/achingbrain/race-signal/issues/88)) ([b88cddd](https://github.com/achingbrain/race-signal/commit/b88cddda8c29718b45f8906183b2e909e12c742a))
+
+### Trivial Changes
+
+* bump aegir from 47.2.0 to 48.1.2 ([#87](https://github.com/achingbrain/race-signal/issues/87)) ([7e5a90c](https://github.com/achingbrain/race-signal/commit/7e5a90cf55cedf12da55b1b66580ad70278fc757))
+
 ## [2.0.0](https://github.com/achingbrain/race-signal/compare/v1.1.3...v2.0.0) (2025-08-19)
 
 ### ⚠ BREAKING CHANGES
