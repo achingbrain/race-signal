@@ -9,6 +9,20 @@ describe('race-signal', () => {
     await expect(raceSignal(p)).to.eventually.equal(value)
   })
 
+  it('should resolve value when null signal passed', async () => {
+    const value = 'hello world'
+    const p = Promise.resolve(value)
+
+    await expect(raceSignal(p, null)).to.eventually.equal(value)
+  })
+
+  it('should resolve value when undefined signal passed', async () => {
+    const value = 'hello world'
+    const p = Promise.resolve(value)
+
+    await expect(raceSignal(p, undefined)).to.eventually.equal(value)
+  })
+
   it('should abort when aborted signal passed', async () => {
     const reason = new Error('Wat')
     const value = 'hello world'

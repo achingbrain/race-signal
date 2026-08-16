@@ -71,7 +71,7 @@ function defaultTranslate (signal: AbortSignal): Error {
 /**
  * Race a promise against an abort signal
  */
-export async function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal, opts?: RaceSignalOptions): Promise<T> {
+export async function raceSignal <T> (promise: Promise<T>, signal?: AbortSignal | null, opts?: RaceSignalOptions): Promise<T> {
   if (signal == null) {
     return promise
   }
