@@ -1,3 +1,9 @@
+## [2.0.2](https://github.com/achingbrain/race-signal/compare/v2.0.1...v2.0.2) (2026-08-16)
+
+### Bug Fixes
+
+* support undefined promises ([#89](https://github.com/achingbrain/race-signal/issues/89)) ([6f100d9](https://github.com/achingbrain/race-signal/commit/6f100d9b016432f1e8b771753ffe04689412ba95))
+
 ## [2.0.1](https://github.com/achingbrain/race-signal/compare/v2.0.0...v2.0.1) (2026-08-16)
 
 ### Bug Fixes
